@@ -57,7 +57,7 @@ function OrderTable() {
     // Filter order items matching the current order id
     const orderItemsFiltered = orderItems
       ?.filter((item) => item.order_id === order.id)
-      .map((item) => ({
+      .map((item: any) => ({
         product_name: item.products?.name || "Unknown", // Safely access product name
         quantity: item.quantity,
       }));
