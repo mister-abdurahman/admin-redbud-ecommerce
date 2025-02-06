@@ -35,6 +35,17 @@ export async function login({
     password,
   });
   if (error) throw new Error(error.message);
+
+  const { data: ProfileData, error: ProfileError } = await supabase
+    .from("user_profiles")
+    .select("*")
+    .eq("id", data.user.id)
+    .single();
+
+  if (ProfileError) throw new Error(ProfileError.message);
+  if (!ProfileData.isAdmin)
+    throw new Error("You are not authorized to access this resource");
+
   return data;
 }
 
